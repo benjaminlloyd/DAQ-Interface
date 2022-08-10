@@ -6,7 +6,9 @@ class DAQ:
         self.task2=task2
         self.task3=task3
         
-    def polarization_triggering(task1,task2,Vfin,poin,delay):
+    def polarization_triggering(arg,Vfin,poin,delay):
+        task1=arg.task1
+        task2=arg.task2
         sett=np.asarray(np.linspace(0,Vfin,point)) #sets the resolution and scope of the piezo wavelength sweep
         try:
             i=0
@@ -23,9 +25,11 @@ class DAQ:
         except:
             pass
         finally:
-            print("Done")
+                print("Done")
                 
-    def sweep(task1,task3,Vfin,poin,delay):
+    def sweep(arg,Vfin,poin,delay):
+        task1=arg.task1
+        task2=arg.task3
         data=[] #data list
         sett=np.asarray(np.linspace(0,Vfin,poin)) #sets scan parameters
         try:
@@ -42,7 +46,9 @@ class DAQ:
             task1.write(0) #resets the piezo when done
         return data
                 
-    def takedata():
+    def takedata(arg):
+        task1=arg.task1
+        task3=arg.task3
         task1.write(0)
         time.sleep(3)
         x=sweep(task1,task3)
