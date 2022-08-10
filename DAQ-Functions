@@ -1,24 +1,32 @@
-import numpy as np
 class DAQ:
     
     def __init__(self,task1,task2,task3):
+        import time
+        import numpy as np
+        import matplotlib.pyplot as plt
+        from lmfit import Model, Parameter
+        from lmfit.models import LorentzianModel
+        import pandas as pd
+        import csv
+        
         self.task1=task1
         self.task2=task2
         self.task3=task3
         
     def polarization_triggering(arg,Vfin,poin,delay):
+        import time
         task1=arg.task1
         task2=arg.task2
-        sett=np.asarray(np.linspace(0,Vfin,point)) #sets the resolution and scope of the piezo wavelength sweep
+        sett=np.asarray(np.linspace(0,Vfin,poin)) #sets the resolution and scope of the piezo wavelength sweep
         try:
             i=0
             while True:
                 x=sett[i] #all the piezo lengths to try
                 if i==0:
                     time.sleep(delay) #delay for DAQ #normally 0.00006
-                    task2.write(0) #sends TTL falling edge trigger
+                    task2.write(0)#sends TTL falling edge trigger
                     task1.write(x) #sets piezo length
-                    task2.write(3.6) #resets trigger signal
+                    task2.write(3.6)#resets trigger signal
                 task1.write(x) #sets piezo length
                 time.sleep(delay) #delay for DAQ
                 i=(i+1)%(len(sett)-1) #repeat
