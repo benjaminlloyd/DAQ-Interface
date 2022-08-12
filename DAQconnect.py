@@ -17,11 +17,11 @@ class Connect:
             pass
             
         self.task1=ni.Task()
-        self.task1.ao_channels.add_ao_voltage_chan('Dev1/ao0','mychannel',-5,5) #Output channel which controls the piezo for the laser
+        self.task1.ao_channels.add_ao_voltage_chan('Dev1/ao0','mychannel',-10,10) #Output channel which controls the piezo for the laser
         self.task1.start()
         
         self.task2=ni.Task()
-        self.task2.ao_channels.add_ao_voltage_chan('Dev1/ao1','mychannel',-5,5) #output channel which controls oscilloscope triggering
+        self.task2.ao_channels.add_ao_voltage_chan('Dev1/ao1','mychannel',-10,10) #output channel which controls oscilloscope triggering
         self.task2.start()
         
         self.task3=ni.Task()
